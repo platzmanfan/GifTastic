@@ -1,0 +1,30 @@
+body{
+    background: palevioletred;
+}
+.buttonClick{
+    padding:25px;
+    margin-right:5px;
+    margin-bottom: 1cm;
+    background-color: blue;
+    color:white;
+    cursor: pointer;
+}
+#actor-input{
+    width: 150px;
+    height:40px;
+        float:right;
+        margin-top: 10cm;
+        border-style: solid;
+}
+#add-movie{
+    margin-top: 10cm;
+    background-color: red;
+    color:white;
+    width:250px;
+    height: 40px;
+    float:right;
+    cursor: pointer;
+}
+p{
+    font-size: 20px ;
+}

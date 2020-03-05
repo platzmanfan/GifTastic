@@ -1,5 +1,11 @@
 var buttonCreating ="";
-var topics=["Johhny Depp","Leonardo DiCaprio","Nicolas Cage","Scarlet Johansson","Tom Cruise","Brad Pitt","Lord of The Rings"]
+var topics=["Johhny Depp","Leonardo DiCaprio","Nicolas Cage","Scarlet Johansson",
+"Tom Cruise","Brad Pitt",
+"Lord of The Rings","Robert De Niro",
+"Jack Nicholson","Denzel Washington","Tom Hanks","Morgan Freeman","Anthony Hopkins",
+"Ingrid Bergman","Elizabeth Taylor","Kate Winslet","Halle Berry","Sophia Loren","Viola Davis",
+"Jodie Foster","Al Pacino","Kirk Douglas"
+]
 window.onload = function(){
 
     this.createButton();
@@ -10,7 +16,7 @@ window.onload = function(){
         $("#buttons").empty();
     for(var i = 0; i< topics.length; i++){
     buttonCreating = topics[i];
-    console.log(buttonCreating)
+    
     var buttons = $("<button>");
     buttons.addClass("buttonClick");
     buttons.attr("data-person" , topics[i]);
@@ -36,12 +42,14 @@ function displayActors(){
         
         var results = response.data
         
-        for (var i =0; i < 10;i++){
+        for (var i =0; i < 11;i++){
             if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
         var gifDiv = $("<div>");
-        var rating = results[i].rating
+        var rating = results[i].rating;
+        var title = results[i].title;
+        var datetime = results[i].import_datetime;
         var actorImage = $("<img>");
-        // actorImage.addClass("gif");
+        
         actorImage.attr({"src": results[i].images.fixed_height_still.url,
                         "data-still": results[i].images.fixed_height_still.url,
                         "data-animate": results[i].images.fixed_height.url,
@@ -50,22 +58,29 @@ function displayActors(){
             });
       
         var p = $("<p>").text("Rating: " + rating);
+        var p1 =$("<h2>").append("Title :  <b> " + title + "</b>");
+        var p2 =$("<p>").text("Released  :" + datetime);
+        
         gifDiv.append(p);
+        gifDiv.append(p2);
         gifDiv.append(actorImage);
-        $("#gifs").prepend(gifDiv);
+        gifDiv.prepend(p1);
+        
+;        $("#gifs").prepend(gifDiv);
         }
     }
     })
     $("#gifs").empty();
 };
  $(document).on("click", "#add-movie",function(event) {
-        $("#add-movie").empty()
+            
+    $("#add-movie").empty()
         
         event.preventDefault();
-        // This line grabs the input from the textbox
+        
         var actors = $("#actor-input").val().trim();
         
-        // Adding movie from the textbox to our array
+       
         topics.push(actors);
         createButton();
     });

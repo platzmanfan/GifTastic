@@ -3,7 +3,7 @@ var topics=["Johhny Depp","Leonardo DiCaprio","Nicolas Cage","Scarlet Johansson"
 window.onload = function(){
 
     this.createButton();
-    // this.gifAnimate();
+    
 };
     function createButton(){
    
@@ -41,8 +41,14 @@ function displayActors(){
         var gifDiv = $("<div>");
         var rating = results[i].rating
         var actorImage = $("<img>");
-        actorImage.addClass("gif");
-        actorImage.attr("src", results[i].images.fixed_height.url)
+        // actorImage.addClass("gif");
+        actorImage.attr({"src": results[i].images.fixed_height_still.url,
+                        "data-still": results[i].images.fixed_height_still.url,
+                        "data-animate": results[i].images.fixed_height.url,
+                        "data-state": "still",
+                        "class": "gif"
+            });
+      
         var p = $("<p>").text("Rating: " + rating);
         gifDiv.append(p);
         gifDiv.append(actorImage);
@@ -53,7 +59,8 @@ function displayActors(){
     $("#gifs").empty();
 };
  $(document).on("click", "#add-movie",function(event) {
-        $("#add-movie").empty();
+        $("#add-movie").empty()
+        
         event.preventDefault();
         // This line grabs the input from the textbox
         var actors = $("#actor-input").val().trim();
@@ -62,8 +69,20 @@ function displayActors(){
         topics.push(actors);
         createButton();
     });
-// function gifAnimate(){
-//     $("gif")on("click", ".img",function(){
-//         console.log("click");
-//     })
-// }
+
+    $(document).on("click", ".gif",function(){
+        console.log("click");
+        
+        var state = $(this).attr("data-state");
+        
+        if (state === "still"){
+            var newSrc = $(this).attr("data-animate")
+            $(this).attr("src", newSrc);
+            $(this).attr("data-state", "animate");
+        } else{
+            var newSrc = $(this).attr("data-still")
+            $(this).attr("src", newSrc);
+            $(this).attr("data-state", "still");
+        }
+    });
+
